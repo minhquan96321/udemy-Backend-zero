@@ -1,26 +1,21 @@
-const express = require("express");
-const path = require("path");
+// xử lý
 require("dotenv").config();
+const express = require("express");
+// inposted
+const configViewEngine = require("./config/viewEngine");
+const webRouter = require("./routes/web");
 
 const app = express();
 const port = process.env.PORT;
 const hostname = process.env.HOST_NAME || 8888;
 
-
 // comfig temlate engine
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+configViewEngine(app);
 
 // Khai báo route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/v1", webRouter);
 
-app.get("/abc", (req, res) => {
-  //res.send("Yeu em qua di");
-  res.render("sample.ejs");
-});
-
+// hiển thị views
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`);
 });
