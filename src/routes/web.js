@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
+//inport
+const { getHomepage, hoiDanit } = require("../controllers/homeController");
 
-router.get("/", (req, res) => {
-  res.send("Hello World! & cái gì vậy hề ");
-});
+//router : điểu hướng trang
 
-router.get("/hoidanit", (req, res) => {
-  res.render("sample.ejs");
-});
+router.get("/", getHomepage);
+
+router.get("/hoidanit", hoiDanit);
 
 module.exports = router;
