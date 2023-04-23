@@ -15,7 +15,12 @@ const hoiDanit = (req, res) => {
   res.render("sample.ejs");
 };
 
+const getHomepage2 = (req, res) => {
+  return res.render('home.ejs');
+}
+
 module.exports = {
   getHomepage,
   hoiDanit,
+  getHomepage2,
 };
