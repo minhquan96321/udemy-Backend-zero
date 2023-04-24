@@ -30,3 +30,56 @@
   background-color: #04aa6d;
   color: white;
 }
+
+.form {
+  width: 500px;
+  margin: 0 auto;
+
+  padding-top: 100px;
+}
+
+.input-group {
+  padding: 10px;
+}
+
+button {
+  padding: 5px 15px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+table,
+td,
+th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 15px;
+}
+
+td:hover {
+  background-color: #ccc;
+}
+
+.table-container {
+  padding-top: 15px;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.BTN {
+  text-align: center;
+}
+

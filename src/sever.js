@@ -11,6 +11,9 @@ const configViewEngine = require("./config/viewEngine");
 const webRouter = require("./routes/web");
 const connection = require("./config/database");
 
+// comfig req.body
+app.use(express.json()); // for json
+app.use(express.urlencoded({ extended: true })); // for form data
 // comfig temlate engine
 configViewEngine(app);
 
@@ -19,7 +22,6 @@ app.use("/v1", webRouter);
 
 // test connection
 // simple query
-
 
 // hiển thị views
 app.listen(port, hostname, () => {
