@@ -1,18 +1,12 @@
 const { render } = require("ejs");
 const connection = require("../config/database");
 
-const { getAllUsers } = require("../services/CRUDservices");
-
-const getHomepage = (req, res) => {
-  //proces data
-  // call model
-  let user = [];
-  connection.query("select * from Users ;", function (err, results, fields) {
-    user = results;
-    //console.log(">>>results =", results); // results contains rows returned by server
-    res.send(JSON.stringify(user));
-  });
-};
+const {
+  getAllUsers,
+  getUsersById,
+  postUpdated,
+  postCreateUserID,
+} = require("../services/CRUDservices");
 
 const hoiDanit = (req, res) => {
   res.render("sample.ejs");
@@ -20,7 +14,7 @@ const hoiDanit = (req, res) => {
 
 const getHomepage2 = async (req, res) => {
   let results = await getAllUsers();
-  return res.render("home.ejs", { listUsers: results });
+  return res.render("home.ejs", { listUsers: results }); // x <- y
 };
 
 const postCreateUser = async (req, res) => {
@@ -30,32 +24,37 @@ const postCreateUser = async (req, res) => {
 
   console.log(">> email :", email, "name = ", name, "citi = ", city);
 
-  // connection.query(
-  //   `   INSERT INTO Users (email, name, city) VALUES
-  //      ( ?, ?, ?)`,
-  //   [email, name, city],
-  //   function (err, results) {
-  //     res.send("Created user successfully");
-  //   }
-  // );
+  await postCreateUserID(email, name, city);
 
-  let [results, fields] = await connection.query(
-    `   INSERT INTO Users (email, name, city) VALUES
-       ( ?, ?, ?)`,
-    [email, name, city]
-  );
-  console.log(">>results:", results);
-  res.send("Created user successfully");
+ // res.send("Created user successfully");
+  res.redirect("/home");
 };
 
 const getCreatePage = (req, res) => {
   res.render("creage.ejs");
 };
 
+const getEditpage = async (req, res) => {
+  const userID = req.params.id;
+  let user = await getUsersById(userID);
+  res.render("edit.ejs", { userEdit: user }); // x <- y
+};
+
+const postUpdateUser = async (req, res) => {
+  let email = req.body.email;
+  let name = req.body.myname;
+  let city = req.body.city;
+  let userID = req.body.id;
+  await postUpdated(email, name, city, userID);
+  //res.send("Updated user successfully");
+  res.redirect("/home");
+};
+
 module.exports = {
-  getHomepage,
   hoiDanit,
   getHomepage2,
   postCreateUser,
   getCreatePage,
+  getEditpage,
+  postUpdateUser,
 };

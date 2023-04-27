@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true })); // for form data
 configViewEngine(app);
 
 // Khai báo route
-app.use("/v1", webRouter);
+app.use("", webRouter);
 
 // test connection
 // simple query

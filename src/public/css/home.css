@@ -83,3 +83,6 @@ td:hover {
   text-align: center;
 }
 
+.userID {
+  display: none;
+}
