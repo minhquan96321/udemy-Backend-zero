@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT;
 const hostname = process.env.HOST_NAME || 8888;
+const mongoose = require("mongoose");
 
 // lấy ra sử dụng
 const configViewEngine = require("./config/viewEngine");
@@ -20,6 +21,13 @@ configViewEngine(app);
 // Khai báo route
 app.use("", webRouter);
 
+// Khai báo route Mongodb
+const kittySchema = new mongoose.Schema({
+  name: String,
+});
+const Kitten = mongoose.model("Kitten", kittySchema);
+const cat = new Kitten({ name: "con lon nay" });
+cat.save();
 // test connection MONGODB connection
 
 (async () => {
