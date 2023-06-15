@@ -1,3 +1,5 @@
+
+
 const connection = require("../config/database");
 
 const getAllUsers = async () => {
@@ -6,13 +8,13 @@ const getAllUsers = async () => {
   return results;
 };
 
-const postCreateUserID = async (email, name, city) => { 
+const postCreateUserID = async (email, name, city) => {
   let [results, fields] = await connection.query(
     `   INSERT INTO Users (email, name, city) VALUES
        ( ?, ?, ?)`,
     [email, name, city]
   );
-   // connection.query(
+  // connection.query(
   //   `   INSERT INTO Users (email, name, city) VALUES
   //      ( ?, ?, ?)`,
   //   [email, name, city],
@@ -20,7 +22,7 @@ const postCreateUserID = async (email, name, city) => {
   //     res.send("Created user successfully");
   //   }
   // );
-}
+};
 
 const getUsersById = async (userID) => {
   let [results, fields] = await connection.query(
@@ -40,12 +42,19 @@ const postUpdated = async (email, name, city, userID) => {
     WHERE id  = ?;`,
     [email, name, city, userID]
   );
+};
 
+const deleteUserById = async (userID) => {
+  let [results, fields] = await connection.query(
+    `   DELETE FROM Users  WHERE id = ?`,
+    [userID]
+  );
 };
 
 module.exports = {
   getAllUsers,
+  postCreateUserID,
   getUsersById,
   postUpdated,
-  postCreateUserID,
+  deleteUserById,
 };

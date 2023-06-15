@@ -3,9 +3,10 @@ const connection = require("../config/database");
 
 const {
   getAllUsers,
+  postCreateUserID,
   getUsersById,
   postUpdated,
-  postCreateUserID,
+  deleteUserById,
 } = require("../services/CRUDservices");
 
 const hoiDanit = (req, res) => {
@@ -26,7 +27,7 @@ const postCreateUser = async (req, res) => {
 
   await postCreateUserID(email, name, city);
 
- // res.send("Created user successfully");
+  // res.send("Created user successfully");
   res.redirect("/home");
 };
 
@@ -50,6 +51,18 @@ const postUpdateUser = async (req, res) => {
   res.redirect("/home");
 };
 
+const deleteUser = async (req, res) => {
+  const userID = req.params.id;
+  let user = await getUsersById(userID);
+  res.render("delete.ejs", { userEdit: user });
+};
+
+const deleteHandleRemoUser = async (req, res) => {
+  let userID = req.body.id;
+  await deleteUserById(userID);
+  res.redirect("/home");
+};
+
 module.exports = {
   hoiDanit,
   getHomepage2,
@@ -57,4 +70,6 @@ module.exports = {
   getCreatePage,
   getEditpage,
   postUpdateUser,
+  deleteUser,
+  deleteHandleRemoUser,
 };

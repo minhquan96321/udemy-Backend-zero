@@ -1,3 +1,4 @@
+//1.11111111 phần sql quan hệ
 // xử lý
 require("dotenv").config();
 const express = require("express");
@@ -27,3 +28,6 @@ app.use("", webRouter);
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+
+//1.2222222222222222222 MongoDB server

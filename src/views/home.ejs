@@ -47,7 +47,9 @@
               <button>
                 <a href="/edit/<%=User.id  %>">Edit</a>
               </button>
-              <button>Detele</button>
+              <form action="/delete-user/<%=User.id%>" method="POST">
+                <button>Detele</button>
+              </form>
             </td>
           </tr>
           <% }); %>
