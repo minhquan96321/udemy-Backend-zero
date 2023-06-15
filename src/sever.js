@@ -20,10 +20,23 @@ configViewEngine(app);
 // Khai báo route
 app.use("", webRouter);
 
-// test connection
+// test connection MONGODB connection
+
+(async () => {
+  try {
+    // Kiểm tra lỗi trước khi chạy
+    await connection();
+    app.listen(port, hostname, () => {
+      console.log(`Backend zero app listening on port ${port}`);
+    });
+  } catch (error) {
+    console.log(">>> Error: " + error);
+  }
+})();
+
 // simple query
 
 // hiển thị views
-app.listen(port, hostname, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+// app.listen(port, hostname, () => {
+//   console.log(`Example app listening on port ${port}`);
+// });
