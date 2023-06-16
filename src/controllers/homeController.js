@@ -1,5 +1,6 @@
 const { render } = require("ejs");
 const connection = require("../config/database");
+const User = require("../models/User");
 
 const {
   getAllUsers,
@@ -13,7 +14,10 @@ const hoiDanit = (req, res) => {
 };
 
 const getHomepage2 = async (req, res) => {
-  let results = await getAllUsers();
+  // SQL DB
+  //let results = await getAllUsers();
+  // MongoDB
+  let results = [];
   return res.render("home.ejs", { listUsers: results }); // x <- y
 };
 
@@ -22,12 +26,17 @@ const postCreateUser = async (req, res) => {
   let name = req.body.myname;
   let city = req.body.city;
 
-  console.log(">> email :", email, "name = ", name, "citi = ", city);
-
-  await postCreateUserID(email, name, city);
-
- // res.send("Created user successfully");
-  res.redirect("/home");
+ 
+  // SQL SEVER DB
+  //await postCreateUserID(email, name, city);
+  // MongoDB
+  await User.create( {
+    email: email,
+    name: name,
+    city: city,
+  })
+   res.send("Created user successfully");
+  //res.redirect("/home");
 };
 
 const getCreatePage = (req, res) => {

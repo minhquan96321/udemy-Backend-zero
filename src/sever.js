@@ -10,7 +10,6 @@ const hostname = process.env.HOST_NAME || 8888;
 const configViewEngine = require("./config/viewEngine");
 const webRouter = require("./routes/web");
 const connection = require("./config/database");
-const Kitten = require("./models/Kitten");
 
 // comfig req.body
 app.use(express.json()); // for json
@@ -22,10 +21,6 @@ configViewEngine(app);
 app.use("", webRouter);
 
 // test connection MONGODB connection
-
-const cat = new Kitten({ name: "Học nhiều quá đi" });
-cat.save();
-
 (async () => {
   try {
     // Kiểm tra lỗi trước khi chạy

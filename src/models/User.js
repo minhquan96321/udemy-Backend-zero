@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 // Khai báo route Mongodb
 //1.1  định dạng kittySchema
-const kittySchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: String,
+  email: String,
+  city: String,
 });
-const Kitten = mongoose.model("Kitten", kittySchema);
+const User = mongoose.model("user", userSchema);
 
-module.exports = Kitten;
+module.exports = User;
 
 //   const cat = new Kitten({ name: "con lon nay" });
 //   cat.save();
