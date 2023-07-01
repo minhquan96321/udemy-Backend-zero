@@ -17,7 +17,7 @@ const getHomepage2 = async (req, res) => {
   // SQL DB
   //let results = await getAllUsers();
   // MongoDB
-  let results = [];
+  let results = await User.find({});
   return res.render("home.ejs", { listUsers: results }); // x <- y
 };
 
@@ -26,17 +26,16 @@ const postCreateUser = async (req, res) => {
   let name = req.body.myname;
   let city = req.body.city;
 
- 
   // SQL SEVER DB
   //await postCreateUserID(email, name, city);
   // MongoDB
-  await User.create( {
+  await User.create({
     email: email,
     name: name,
     city: city,
-  })
-   res.send("Created user successfully");
-  //res.redirect("/home");
+  });
+  //res.send("Created user successfully");
+  res.redirect("/home");
 };
 
 const getCreatePage = (req, res) => {
@@ -45,7 +44,10 @@ const getCreatePage = (req, res) => {
 
 const getEditpage = async (req, res) => {
   const userID = req.params.id;
-  let user = await getUsersById(userID);
+  //SQL DB Query
+  //let user = await getUsersById(userID);
+  //SQL MONGODB Query
+  let user = await User.findById(userID).exec();
   res.render("edit.ejs", { userEdit: user }); // x <- y
 };
 
@@ -54,7 +56,12 @@ const postUpdateUser = async (req, res) => {
   let name = req.body.myname;
   let city = req.body.city;
   let userID = req.body.id;
-  await postUpdated(email, name, city, userID);
+  //await postUpdated(email, name, city, userID);
+  // SQL Monggodb
+  await User.updateOne(
+    { _id: userID },
+    { email: email, name: name, city: city }
+  );
   //res.send("Updated user successfully");
   res.redirect("/home");
 };
