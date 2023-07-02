@@ -10,6 +10,8 @@ const {
   getCreatePage,
   getEditpage,
   postUpdateUser,
+  deleteUser,
+  deleteHandleRemoUser,
 } = require("../controllers/homeController");
 
 //router : điểu hướng trang
@@ -25,5 +27,9 @@ router.post("/create-user", postCreateUser);
 router.get("/edit/:id", getEditpage);
 
 router.post("/update-user", postUpdateUser);
+
+//router.post("/delete-user/:id", deleteUser);
+router.get("/delete-user/:id", deleteUser);
+router.post("/delete-user", deleteHandleRemoUser);
 
 module.exports = router;

@@ -45,9 +45,14 @@
             <td><%= User.city %></td>
             <td>
               <button>
-                <a href="/edit/<%=User.id  %>">Edit</a>
+                <a href="/edit/<%=User.id%>">Edit</a>
               </button>
-              <button>Detele</button>
+              <!-- <form action="/delete-user/<%=User.id%>" method="POST">
+                <button>Detele</button>
+              </form> -->
+              <button>
+                <a href="/delete-user/<%=User.id%>">Delete</a>
+              </button>
             </td>
           </tr>
           <% }); %>

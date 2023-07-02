@@ -7,6 +7,7 @@ const {
   getUsersById,
   postUpdated,
   postCreateUserID,
+  deleteUserById,
 } = require("../services/CRUDservices");
 
 const hoiDanit = (req, res) => {
@@ -66,6 +67,24 @@ const postUpdateUser = async (req, res) => {
   res.redirect("/home");
 };
 
+const deleteUser = async (req, res) => {
+  const userID = req.params.id;
+  // // SQL DB
+  // //let user = await getUsersById(userID);
+  // // SQL MongoDB
+  let user = await User.findById(userID).exec();
+  res.render("delete.ejs", { userEdit: user });
+  // res.send("Updated user successfully");
+};
+
+const deleteHandleRemoUser = async (req, res) => {
+  let userID = req.body.id;
+  // SQL DB
+  // await deleteUserById(userID);
+  await User.deleteOne({ _id: userID });
+  res.redirect("/home");
+};
+
 module.exports = {
   hoiDanit,
   getHomepage2,
@@ -73,4 +92,6 @@ module.exports = {
   getCreatePage,
   getEditpage,
   postUpdateUser,
+  deleteUser,
+  deleteHandleRemoUser,
 };

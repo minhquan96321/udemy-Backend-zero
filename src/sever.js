@@ -9,6 +9,8 @@ const hostname = process.env.HOST_NAME || 8888;
 // lấy ra sử dụng
 const configViewEngine = require("./config/viewEngine");
 const webRouter = require("./routes/web");
+const apiRouter = require("./routes/api");
+
 const connection = require("./config/database");
 
 // comfig req.body
@@ -19,6 +21,7 @@ configViewEngine(app);
 
 // Khai báo route
 app.use("", webRouter);
+app.use("/v1/api", apiRouter);
 
 // test connection MONGODB connection
 (async () => {
