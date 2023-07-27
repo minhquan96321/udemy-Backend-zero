@@ -5,6 +5,8 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT;
 const hostname = process.env.HOST_NAME || 8888;
+// Thư viên load ảnh
+const fileUpload = require("express-fileupload");
 
 // lấy ra sử dụng
 const configViewEngine = require("./config/viewEngine");
@@ -12,6 +14,9 @@ const webRouter = require("./routes/web");
 const apiRouter = require("./routes/api");
 
 const connection = require("./config/database");
+// config file upload
+// default options
+app.use(fileUpload());
 
 // comfig req.body
 app.use(express.json()); // for json

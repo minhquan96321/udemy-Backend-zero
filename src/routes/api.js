@@ -1,13 +1,19 @@
 const express = require("express");
 const routerAPI = express.Router();
 //inport
-const { getUsersAPI } = require("../controllers/apiController");
+const {
+  getUsersAPI,
+  postCreateUserAPI,
+  putUpdateUserAPI,
+  deleteUserAPI,
+  potUploadSingleFileAPI ,
+} = require("../controllers/apiController");
 
 //router : điểu hướng trang
-routerAPI.get("/", (req, res) => {
-  res.send("Hello world");
-});
-
-routerAPI.get("/users", getUsersAPI );
+routerAPI.get("/users", getUsersAPI);
+routerAPI.post("/users", postCreateUserAPI);
+routerAPI.put("/users", putUpdateUserAPI);
+routerAPI.delete("/users", deleteUserAPI);
+routerAPI.post("/file", potUploadSingleFileAPI);
 
 module.exports = routerAPI;
