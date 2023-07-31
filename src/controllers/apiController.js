@@ -62,16 +62,38 @@ const deleteUserAPI = async (req, res) => {
     data: user,
   });
 };
-// đồ án
+// đồ án đồ án đồ án đồ án đồ án đồ án đồ án đồ án đồ án đồ đán đồ án
 const potUploadSingleFileAPI = async (req, res) => {
-  
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("No files were uploaded.");
   }
 
   let result = await uploadSingleFile(req.files.image);
-  console.log(">> check result : ", result);
-  return res.send("Ok single ");
+  // console.log(">> check result : ", result);
+  return res.status(200).json({
+    EC: 0,
+    data: result,
+  });
+  //  return res.send("Ok single ");
+};
+
+const potUpoadMultipleFiles = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  // upload single file : Trả ra một Objec
+  // upload multiple files : Trả ra một ở Array
+  if (Array.isArray(req.files.image)) {
+    // upload multiple
+    let result = await uploadMultipleFile(req.files.image);
+    return res.status(200).json({
+      EC: 0,
+      data: result,
+    });
+  } else {
+    // upload single file
+    return await uploadSingleFile(req, res);
+  }
 };
 
 module.exports = {
@@ -80,4 +102,5 @@ module.exports = {
   putUpdateUserAPI,
   deleteUserAPI,
   potUploadSingleFileAPI,
+  potUpoadMultipleFiles,
 };
