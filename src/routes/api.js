@@ -10,12 +10,17 @@ const {
   potUpoadMultipleFiles,
 } = require("../controllers/apiController");
 
+const { postCreateCustomer } = require("../controllers/customesController");
+
 //router : điểu hướng trang
 routerAPI.get("/users", getUsersAPI);
 routerAPI.post("/users", postCreateUserAPI);
 routerAPI.put("/users", putUpdateUserAPI);
 routerAPI.delete("/users", deleteUserAPI);
+
 routerAPI.post("/file", potUploadSingleFileAPI);
-routerAPI.post("/file", potUpoadMultipleFiles);
+routerAPI.post("/files", potUpoadMultipleFiles);
+
+routerAPI.post("/customers", postCreateCustomer);
 
 module.exports = routerAPI;
