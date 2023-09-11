@@ -18,6 +18,17 @@ const createCosturmerService = async (customerData) => {
   }
 };
 
+const createArrayCustomersService = async (arr) => {
+  try {
+    let result = await Customor.insertMany(arr);
+    return result;
+  } catch (err) {
+    console.log("err >>>", err);
+    return null;
+  }
+};
+
 module.exports = {
   createCosturmerService,
+  createArrayCustomersService,
 };
