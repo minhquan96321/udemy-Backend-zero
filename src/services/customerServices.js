@@ -28,7 +28,43 @@ const createArrayCustomersService = async (arr) => {
   }
 };
 
+const getAllCustomersServer = async () => {
+  try {
+    let result = await Customor.find();
+    return result;
+  } catch (err) {
+    console.log("err >>>", err);
+    return null;
+  }
+};
+
+const putUpdateCustomersServer = async (id, name, email, addresses) => {
+  try {
+    let result = await Customor.updateOne(
+      { _id: id },
+      { name, email, addresses }
+    );
+    return result;
+  } catch (err) {
+    console.log("err >>>", err);
+    return null;
+  }
+};
+
+const deleteCustomersServer = async (id) => {
+  try {
+    let result = await Customor.deleteOne({ _id: id });
+    return result;
+  } catch (err) {
+    console.log("err >>>", err);
+    return null;
+  }
+};
+
 module.exports = {
   createCosturmerService,
   createArrayCustomersService,
+  getAllCustomersServer,
+  putUpdateCustomersServer,
+  deleteCustomersServer,
 };

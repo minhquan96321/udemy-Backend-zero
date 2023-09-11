@@ -13,6 +13,9 @@ const {
 const {
   postCreateCustomer,
   postCreateArrayCustomer,
+  getAllCustomers,
+  putUpdateCustomers,
+  DeleteCustomers,
 } = require("../controllers/customesController");
 
 //router : điểu hướng trang
@@ -26,5 +29,8 @@ routerAPI.post("/files", potUpoadMultipleFiles);
 
 routerAPI.post("/customers", postCreateCustomer);
 routerAPI.post("/customers-many", postCreateArrayCustomer);
+routerAPI.get("/customers", getAllCustomers);
+routerAPI.put("/customersl", putUpdateCustomers);
+routerAPI.delete("/customers", DeleteCustomers);
 
 module.exports = routerAPI;
