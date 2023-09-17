@@ -5,7 +5,10 @@ const {
   getAllCustomersServer,
   putUpdateCustomersServer,
   deleteCustomersServer,
+  deleteArrayCustomerServices,
 } = require("../services/customerServices");
+
+
 
 // C2: Tạo người dùng
 // {key : value}
@@ -52,7 +55,17 @@ module.exports = {
     }
   },
   getAllCustomers: async (req, res) => {
-    let result = await getAllCustomersServer();
+    let limit = req.query.limit;
+    let page = req.query.page;
+    let name = req.query.name;
+    let result = "";
+
+    // Làm phân trang
+    if (limit && page) {
+      result = await getAllCustomersServer(limit, page, name, req.query);
+    } else {
+      result = await getAllCustomersServer();
+    }
     return res.status(200).json({
       EC: 0,
       data: result,
@@ -80,6 +93,25 @@ module.exports = {
     return res.status(200).json({
       EC: 0,
       data: result,
+    });
+  },
+
+  DeleteAPluginCustomer: async (req, res) => {
+    let { id } = req.body;
+    let result = await deleteCustomersServer(id);
+    return res.status(200).json({
+      EC: 0,
+      data: result,
+    });
+  },
+
+  DeleteArrayCustomer: async (req, res) => {
+    let id = req.body.customerid;
+    console.log(id);
+    let customermany = await deleteArrayCustomerServices(id);
+    return res.status(200).json({
+      EC: 0,
+      data: customermany,
     });
   },
 };

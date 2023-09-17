@@ -15,9 +15,19 @@ const customerSchema = new mongoose.Schema(
     image: String,
     description: String,
   },
-  { timestamps: true }
+  {
+    timestamps: true,// CreateAt, UpdateAt
+    // statics: {
+    //   findByHoiDanIT(name) {
+    //     return this.find({ name: new RegExp(name, "i") });
+    //   },
+    // },
+  }
 );
-customerSchema.plugin(mongoose_delete);
+//Override all models
+customerSchema.plugin(mongoose_delete, {
+  overrideMethods: "all",
+});
 
 const Customor = mongoose.model("Customor", customerSchema);
 

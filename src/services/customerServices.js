@@ -1,4 +1,6 @@
 const Customor = require("../models/costurmer");
+// Thưu viên tối ưu sql
+const aqp = require("api-query-params");
 
 const createCosturmerService = async (customerData) => {
   console.log(">>>> Checkk : ", customerData);
@@ -28,9 +30,21 @@ const createArrayCustomersService = async (arr) => {
   }
 };
 
-const getAllCustomersServer = async () => {
+const getAllCustomersServer = async (limit, page, name, querySting) => {
   try {
-    let result = await Customor.find();
+    let result = "";
+    if (limit && page) {
+      // phân trang nào
+      let offset = (page - 1) * limit;
+      const { filter, skip } = aqp(querySting);
+      // Xóa phần tử trong ojected
+      delete filter.page;
+      console.log("Checkkk >>>", filter);
+
+      result = await Customor.find(filter).skip(offset).limit(limit).exec();
+    } else {
+      result = await Customor.find({});
+    }
     return result;
   } catch (err) {
     console.log("err >>>", err);
@@ -53,7 +67,17 @@ const putUpdateCustomersServer = async (id, name, email, addresses) => {
 
 const deleteCustomersServer = async (id) => {
   try {
-    let result = await Customor.deleteOne({ _id: id });
+    let result = await Customor.deleteById(id);
+    return result;
+  } catch (err) {
+    console.log("err >>>", err);
+    return null;
+  }
+};
+
+const deleteArrayCustomerServices = async (id) => {
+  try {
+    let result = await Customor.deleteMany({ _id: { $in: id } });
     return result;
   } catch (err) {
     console.log("err >>>", err);
@@ -67,4 +91,5 @@ module.exports = {
   getAllCustomersServer,
   putUpdateCustomersServer,
   deleteCustomersServer,
+  deleteArrayCustomerServices,
 };
