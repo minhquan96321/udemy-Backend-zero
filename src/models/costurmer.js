@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// Thư viện có thể xóa
+// Thư viện có thể xóa không mất giữ liệu
 const mongoose_delete = require("mongoose-delete");
 // Khai báo route Mongodb
 //1.1  định dạng kittySchema

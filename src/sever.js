@@ -14,6 +14,7 @@ const webRouter = require("./routes/web");
 const apiRouter = require("./routes/api");
 
 const connection = require("./config/database");
+const { MongoClient } = require("mongodb");
 // config file upload
 // default options
 app.use(fileUpload());
@@ -32,7 +33,42 @@ app.use("/v1/api", apiRouter);
 (async () => {
   try {
     // Kiểm tra lỗi trước khi chạy
+    // using mongoose
     await connection();
+
+    //using mongodb driver
+    const url = process.env.DB_HOST_DRIVER;
+    const client = new MongoClient(url);
+
+    // Database Name
+    const dbName = process.env.DB_NAME;
+    await client.connect();
+    console.log("Connected successfully to server");
+    const db = client.db(dbName);
+    const collection = db.collection("customors");
+
+  //   {
+  //     id: 1,
+  //     province :"Vinh",
+  //     country : {
+  //       "VietNam",
+  //       code : 100
+  //     }
+  //   },
+  //   {
+  //     id: 2,
+  //     province :"Dien Chau",
+  //     country : {
+  //       "VietNam",
+  //       code : 100
+  //     }
+  //   }
+
+  //   collection.insertOne({ name: "QuanCao",
+  //     address : [ 1 ,2]
+  // });
+
+
     app.listen(port, hostname, () => {
       console.log(`Backend zero app listening on port ${port}`);
     });
