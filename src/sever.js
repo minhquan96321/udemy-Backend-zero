@@ -37,15 +37,15 @@ app.use("/v1/api", apiRouter);
     await connection();
 
     //using mongodb driver
-    const url = process.env.DB_HOST_DRIVER;
-    const client = new MongoClient(url);
+    // const url = process.env.DB_HOST_DRIVER;
+    // const client = new MongoClient(url);
 
     // Database Name
-    const dbName = process.env.DB_NAME;
-    await client.connect();
-    console.log("Connected successfully to server");
-    const db = client.db(dbName);
-    const collection = db.collection("customors");
+    // const dbName = process.env.DB_NAME;
+    // await client.connect();
+    // console.log("Connected successfully to server");
+    // const db = client.db(dbName);
+    // const collection = db.collection("customors");
 
   //   {
   //     id: 1,

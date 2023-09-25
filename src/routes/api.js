@@ -20,6 +20,12 @@ const {
   DeleteArrayCustomer,
 } = require("../controllers/customesController");
 
+// Dự án Project
+const {
+  postCreateProject,
+  getAllProject,
+} = require("../controllers/projectController");
+
 //router : điểu hướng trang
 routerAPI.get("/users", getUsersAPI);
 routerAPI.post("/users", postCreateUserAPI);
@@ -36,6 +42,10 @@ routerAPI.put("/customersl", putUpdateCustomers);
 routerAPI.delete("/customers", DeleteCustomers);
 routerAPI.delete("/customers1", DeleteAPluginCustomer);
 routerAPI.delete("/customers-many", DeleteArrayCustomer);
+
+// Dự án proje
+routerAPI.post("/projects", postCreateProject);
+routerAPI.get("/projects", getAllProject);
 
 // Qure string : dùng nhiều data
 routerAPI.get("/info", (req, res) => {
