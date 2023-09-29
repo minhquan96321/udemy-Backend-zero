@@ -60,7 +60,7 @@ const putUpdateCustomersServer = async (id, name, email, addresses) => {
     );
     return result;
   } catch (err) {
-    console.log("err >>>", err);
+   // console.log("err >>>", err);
     return null;
   }
 };

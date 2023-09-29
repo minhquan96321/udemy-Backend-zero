@@ -24,7 +24,16 @@ const {
 const {
   postCreateProject,
   getAllProject,
+  putProject,
+  deleteProject,
 } = require("../controllers/projectController");
+// Task
+const {
+  postCreateTask,
+  getFetchTask,
+  putTask,
+  deleteTask,
+} = require("../controllers/taskController");
 
 //router : điểu hướng trang
 routerAPI.get("/users", getUsersAPI);
@@ -46,6 +55,15 @@ routerAPI.delete("/customers-many", DeleteArrayCustomer);
 // Dự án proje
 routerAPI.post("/projects", postCreateProject);
 routerAPI.get("/projects", getAllProject);
+routerAPI.put("/projects", putProject);
+routerAPI.delete("/projects", deleteProject);
+// Task
+//routerAPI.post("/task", postCreateTask);
+routerAPI.post("/task", postCreateTask);
+routerAPI.get("/task", getFetchTask);
+routerAPI.put("/task", putTask);
+routerAPI.delete("/task",deleteTask);
+
 
 // Qure string : dùng nhiều data
 routerAPI.get("/info", (req, res) => {

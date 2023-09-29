@@ -1,4 +1,7 @@
 const { uploadSingleFile } = require("../services/fileServices");
+// Valition
+const Joi = require("joi");
+
 const {
   createCosturmerService,
   createArrayCustomersService,
@@ -8,37 +11,57 @@ const {
   deleteArrayCustomerServices,
 } = require("../services/customerServices");
 
-
-
 // C2: Tạo người dùng
 // {key : value}
 module.exports = {
   postCreateCustomer: async (req, res) => {
     let { name, email, phone, addresses, description } = req.body;
 
-    let imageUrl = "";
+    // Valition
+    const schema = Joi.object({
+      name: Joi.string().alphanum().min(3).max(30).required(),
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-    } else {
-      let result = await uploadSingleFile(req.files.image);
-      imageUrl = result.path;
-    }
+      addresses: Joi.string(),
 
-    let customerData = {
-      name,
-      email,
-      phone,
-      addresses,
-      description,
-      image: imageUrl,
-    };
+      // Cấu hình có thể điền vào
+      phone: Joi.string.pattern(new RegExp("^[0-9]{8,11}$")),
 
-    let customer = await createCosturmerService(customerData);
+      description: Joi.string(),
 
-    return res.status(200).json({
-      EC: 0,
-      data: customer,
+      email: Joi.string().email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      }),
     });
+    const { error } = schema.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      return error;
+    } else {
+      let imageUrl = "";
+
+      if (!req.files || Object.keys(req.files).length === 0) {
+      } else {
+        let result = await uploadSingleFile(req.files.image);
+        imageUrl = result.path;
+      }
+
+      let customerData = {
+        name,
+        email,
+        phone,
+        addresses,
+        description,
+        image: imageUrl,
+      };
+
+      let customer = await createCosturmerService(customerData);
+
+      return res.status(200).json({
+        EC: 0,
+        data: customer,
+      });
+    }
   },
   postCreateArrayCustomer: async (req, res) => {
     let customers = await createArrayCustomersService(req.body.customers);
