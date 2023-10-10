@@ -35,7 +35,7 @@ const {
   deleteTask,
 } = require("../controllers/taskController");
 // login
-const { postUser, LoginUser } = require("../controllers/loginController");
+const loginController = require("../controllers/loginController");
 
 //router : điểu hướng trang
 routerAPI.get("/users", getUsersAPI);
@@ -83,8 +83,11 @@ routerAPI.get("/info/:name/:adress", (req, res) => {
 });
 
 // Login API request
-
-routerAPI.post("/login", postUser);
-routerAPI.get("/login", LoginUser);
-
+const modellJwt = require("../middleware/middleware");
+routerAPI.post("/login", loginController.postUser);
+routerAPI.post("/login1", loginController.LoginUser);
+// RERESH
+routerAPI.post("/refresh", loginController.refreshRequets);
+// Login out
+routerAPI.post("/logout", modellJwt.verifyToKen, loginController.logoutToken);
 module.exports = routerAPI;

@@ -1,6 +1,8 @@
 // xử lý
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT;
@@ -27,12 +29,17 @@ app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 // comfig temlate engine
 configViewEngine(app);
+app.use(express.json());
+app.use(cookieParser());
 
+app.use("/v1/api", apiRouter);
 // Khai báo route
 app.use("", webRouter);
-app.use("/v1/api", apiRouter);
 // Router Login
+app.use(cors());
 app.use("/v1/user", userRouter);
+
+
 
 // test connection MONGODB connection
 (async () => {
