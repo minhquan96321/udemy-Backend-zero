@@ -17,7 +17,7 @@ module.exports = {
   postCreateCustomer: async (req, res) => {
     let { name, email, phone, addresses, description } = req.body;
 
-    // Valition
+    // Valition  hihihihihi
     const schema = Joi.object({
       name: Joi.string().alphanum().min(3).max(30).required(),
 
@@ -41,7 +41,7 @@ module.exports = {
       let imageUrl = "";
 
       if (!req.files || Object.keys(req.files).length === 0) {
-      } else {
+      } else {  
         let result = await uploadSingleFile(req.files.image);
         imageUrl = result.path;
       }
@@ -77,7 +77,7 @@ module.exports = {
       });
     }
   },
-  getAllCustomers: async (req, res) => {
+    getAllCustomers: async (req, res) => {
     let limit = req.query.limit;
     let page = req.query.page;
     let name = req.query.name;

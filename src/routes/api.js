@@ -34,6 +34,8 @@ const {
   putTask,
   deleteTask,
 } = require("../controllers/taskController");
+// login
+const { postUser, LoginUser } = require("../controllers/loginController");
 
 //router : điểu hướng trang
 routerAPI.get("/users", getUsersAPI);
@@ -62,8 +64,7 @@ routerAPI.delete("/projects", deleteProject);
 routerAPI.post("/task", postCreateTask);
 routerAPI.get("/task", getFetchTask);
 routerAPI.put("/task", putTask);
-routerAPI.delete("/task",deleteTask);
-
+routerAPI.delete("/task", deleteTask);
 
 // Qure string : dùng nhiều data
 routerAPI.get("/info", (req, res) => {
@@ -80,5 +81,10 @@ routerAPI.get("/info/:name/:adress", (req, res) => {
     data: req.params,
   });
 });
+
+// Login API request
+
+routerAPI.post("/login", postUser);
+routerAPI.get("/login", LoginUser);
 
 module.exports = routerAPI;

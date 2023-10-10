@@ -12,6 +12,9 @@ const fileUpload = require("express-fileupload");
 const configViewEngine = require("./config/viewEngine");
 const webRouter = require("./routes/web");
 const apiRouter = require("./routes/api");
+//const routerAPI = require("./routes/api");
+// Route Login
+const userRouter = require("./routes/loginUserAPI");
 
 const connection = require("./config/database");
 const { MongoClient } = require("mongodb");
@@ -28,6 +31,8 @@ configViewEngine(app);
 // Khai báo route
 app.use("", webRouter);
 app.use("/v1/api", apiRouter);
+// Router Login
+app.use("/v1/user", userRouter);
 
 // test connection MONGODB connection
 (async () => {
@@ -47,27 +52,26 @@ app.use("/v1/api", apiRouter);
     // const db = client.db(dbName);
     // const collection = db.collection("customors");
 
-  //   {
-  //     id: 1,
-  //     province :"Vinh",
-  //     country : {
-  //       "VietNam",
-  //       code : 100
-  //     }
-  //   },
-  //   {
-  //     id: 2,
-  //     province :"Dien Chau",
-  //     country : {
-  //       "VietNam",
-  //       code : 100
-  //     }
-  //   }
+    //   {
+    //     id: 1,
+    //     province :"Vinh",
+    //     country : {
+    //       "VietNam",
+    //       code : 100
+    //     }
+    //   },
+    //   {
+    //     id: 2,
+    //     province :"Dien Chau",
+    //     country : {
+    //       "VietNam",
+    //       code : 100
+    //     }
+    //   }
 
-  //   collection.insertOne({ name: "QuanCao",
-  //     address : [ 1 ,2]
-  // });
-
+    //   collection.insertOne({ name: "QuanCao",
+    //     address : [ 1 ,2]
+    // });
 
     app.listen(port, hostname, () => {
       console.log(`Backend zero app listening on port ${port}`);

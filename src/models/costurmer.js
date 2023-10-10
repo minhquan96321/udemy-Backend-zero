@@ -16,7 +16,7 @@ const customerSchema = new mongoose.Schema(
     description: String,
   },
   {
-    timestamps: true,// CreateAt, UpdateAt
+    timestamps: true, // CreateAt, UpdateAt
     // statics: {
     //   findByHoiDanIT(name) {
     //     return this.find({ name: new RegExp(name, "i") });
